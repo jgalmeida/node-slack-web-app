@@ -20,6 +20,9 @@ block content
     $(document).ready(function() {
       $('.hasDatepicker').datepicker();
 
+      $('#startDate').val(new Date('1970-01-01').toLocaleDateString());
+      $('#endDate').val(new Date().toLocaleDateString());
+
       $('#filterDate').click(function() {
         var gte = $('#startDate').val();
         var lte = $('#endDate').val();
