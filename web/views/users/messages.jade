@@ -1,0 +1,38 @@
+extends layout
+
+block content
+  h1 Listing Messages
+
+  p Filter by date
+    p
+      label Start date
+        input(type='text', name='gte', class='hasDatepicker', id='startDate')
+      label End date
+        input(type='text', name='lt',  class='hasDatepicker', id='endDate')
+      button(class='btn', id='filterDate', onclick='filter()') Filter
+
+  div#messages
+    ul
+      for message in messages
+        <p>#{message.date} - #{message.text}</p>
+
+  script(type="text/javascript").
+    $(document).ready(function() {
+      $('.hasDatepicker').datepicker();
+
+      $('#filterDate').click(function() {
+        var gte = $('#startDate').val();
+        var lte = $('#endDate').val();
+
+        var url = location.pathname + '?' + 'gte=' + gte + '&' + 'lte=' + lte;
+
+        $.get(url, function(data) {
+          $('#messages').html($(data).find('#messages'));
+        })
+      })
+    })
+
+    function filter() {
+      var startDate = $('#startDate');
+      var endDate   = $('#endDate');
+    }
